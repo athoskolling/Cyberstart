@@ -243,7 +243,7 @@ function Exercise({ lessonId, ex }: { lessonId: string; ex: LessonExercise }) {
   const submit = () => {
     const ok = ex.kind === 'choice' ? choice === ex.answer : checkText(text, ex.accept)
     setResult(ok)
-    updateMeta('lessonProgress', (lp) => ({ ...lp, [lessonId]: { done: lp[lessonId]?.done ?? false, ...lp[lessonId], exerciseCorrect: ok || !!lp[lessonId]?.exerciseCorrect } }))
+    updateMeta('lessonProgress', (lp) => ({ ...lp, [lessonId]: { ...lp[lessonId], done: lp[lessonId]?.done ?? false, exerciseCorrect: ok || !!lp[lessonId]?.exerciseCorrect } }))
   }
   const reset = () => {
     setResult(null)

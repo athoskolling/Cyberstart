@@ -116,7 +116,7 @@ function ChallengeView({ c }: { c: Challenge }) {
   const attempts = useMemo(() => d.attempts.filter((a) => a.challengeId === c.id).sort((a, b) => b.at.localeCompare(a.at)), [d.attempts, c.id])
   const alreadySolved = attempts.some((a) => a.correct)
   const [hint, setHint] = useState(false)
-  const [result, setResult] = useState<null | { ok: boolean; answer: ChallengeAnswer }>(null)
+  const [result, setResult] = useState<null | { ok: boolean; answer: ChallengeAnswer; wasSolved: boolean }>(null)
   const [option, setOption] = useState<number | null>(null)
   const [text, setText] = useState('')
   const initialOrder = useMemo(() => (c.items ? seededShuffle(c.items, c.id) : []), [c])
@@ -135,7 +135,7 @@ function ChallengeView({ c }: { c: Challenge }) {
   const submit = () => {
     if (!current) return
     const ok = grade(c, current)
-    setResult({ ok, answer: current })
+    setResult({ ok, answer: current, wasSolved: alreadySolved })
     recordAttempt(c.id, c.title, ok, describeAnswer(c, current), hint, !alreadySolved)
   }
   const retry = () => {
@@ -249,7 +249,7 @@ function ChallengeView({ c }: { c: Challenge }) {
 
         {result && (
           <div aria-live="polite" className="stack-sm">
-            <Callout tone={result.ok ? 'ok' : 'err'} title={result.ok ? (alreadySolved && attempts.length > 1 ? 'Correto de novo!' : 'Correto!') : 'Não foi dessa vez.'}>
+            <Callout tone={result.ok ? 'ok' : 'err'} title={result.ok ? (result.wasSolved ? 'Correto de novo!' : 'Correto!') : 'Não foi dessa vez.'}>
               {result.ok ? (
                 inline(c.explanation)
               ) : (

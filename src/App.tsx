@@ -1,24 +1,30 @@
-import { useEffect, type ReactNode } from 'react'
+import { Suspense, lazy, useEffect, type ReactNode } from 'react'
 import { HashRouter, Route, Routes, Link } from 'react-router-dom'
 import { Compass, DatabaseZap } from 'lucide-react'
 import { StoreProvider, useData } from './store'
 import { Layout } from './ui/Layout'
 import { Empty } from './ui/ui'
+
 import Overview from './pages/Overview'
-import Roadmap from './pages/Roadmap'
-import ModulePage from './pages/ModulePage'
-import Study from './pages/Study'
-import Resources from './pages/Resources'
-import Labs, { LabPage } from './pages/Labs'
-import Challenges, { ChallengePage } from './pages/Challenges'
-import Review from './pages/Review'
-import Planner from './pages/Planner'
-import Notes from './pages/Notes'
-import Projects, { ProjectPage } from './pages/Projects'
-import Career from './pages/Career'
-import Achievements from './pages/Achievements'
-import Reports from './pages/Reports'
-import SettingsPage from './pages/Settings'
+
+// Páginas carregadas sob demanda: primeira visita mais leve.
+const Roadmap = lazy(() => import('./pages/Roadmap'))
+const ModulePage = lazy(() => import('./pages/ModulePage'))
+const Study = lazy(() => import('./pages/Study'))
+const Resources = lazy(() => import('./pages/Resources'))
+const Labs = lazy(() => import('./pages/Labs'))
+const LabPage = lazy(() => import('./pages/Labs').then((m) => ({ default: m.LabPage })))
+const Challenges = lazy(() => import('./pages/Challenges'))
+const ChallengePage = lazy(() => import('./pages/Challenges').then((m) => ({ default: m.ChallengePage })))
+const Review = lazy(() => import('./pages/Review'))
+const Planner = lazy(() => import('./pages/Planner'))
+const Notes = lazy(() => import('./pages/Notes'))
+const Projects = lazy(() => import('./pages/Projects'))
+const ProjectPage = lazy(() => import('./pages/Projects').then((m) => ({ default: m.ProjectPage })))
+const Career = lazy(() => import('./pages/Career'))
+const Achievements = lazy(() => import('./pages/Achievements'))
+const Reports = lazy(() => import('./pages/Reports'))
+const SettingsPage = lazy(() => import('./pages/Settings'))
 
 function ThemeSync({ children }: { children: ReactNode }) {
   const s = useData().settings
@@ -71,6 +77,7 @@ export default function App() {
       <ThemeSync>
         <HashRouter>
           <Layout>
+            <Suspense fallback={<div className="skeleton" style={{ height: 320 }} aria-busy="true" aria-label="Carregando página" />}>
             <Routes>
               <Route path="/" element={<Overview />} />
               <Route path="/roadmap" element={<Roadmap />} />
@@ -92,6 +99,7 @@ export default function App() {
               <Route path="/configuracoes" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </Layout>
         </HashRouter>
       </ThemeSync>

@@ -1,5 +1,5 @@
 import { openDB, type IDBPDatabase } from 'idb'
-import type { AppData, CollectionName, MetaKey } from '../types'
+import type { AppData, CollectionName, Meta, MetaKey } from '../types'
 import { COLLECTION_KEYS, META_KEYS, emptyData } from './defaults'
 
 // Persistência local em IndexedDB.
@@ -48,7 +48,7 @@ export async function loadAll(): Promise<AppData> {
   return data
 }
 
-export async function putMeta<K extends MetaKey>(key: K, value: AppData[K]) {
+export async function putMeta<K extends MetaKey>(key: K, value: Meta[K]) {
   const db = await getDb()
   await db.put('meta', value, key)
 }

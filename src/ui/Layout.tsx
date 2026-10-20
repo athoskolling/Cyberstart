@@ -188,7 +188,7 @@ export function Layout({ children }: { children: ReactNode }) {
               <Keyboard size={18} />
             </button>
             <RecentActivity />
-            <Link to="/configuracoes" className="btn ghost icon" aria-label="Configurações">
+            <Link to="/configuracoes" className="btn ghost icon hide-mobile" aria-label="Configurações">
               <Settings size={18} />
             </Link>
             <Link to="/conquistas" className="level-chip" aria-label={`Nível ${lvl.level}, ${xp} XP — ver conquistas`}>

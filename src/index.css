@@ -418,6 +418,7 @@ textarea {
 }
 .search-trigger {
   flex: 1;
+  min-width: 0;
   max-width: 460px;
   display: flex;
   align-items: center;
@@ -906,6 +907,11 @@ textarea {
 .grid {
   display: grid;
   gap: var(--gap);
+}
+.grid > *,
+.stack > *,
+.auto-grid > * {
+  min-width: 0;
 }
 .cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1991,6 +1997,9 @@ details.data-table[open] summary {
   }
 }
 @media (max-width: 1024px) {
+  [data-stack] {
+    grid-template-columns: 1fr !important;
+  }
   .study {
     grid-template-columns: 1fr;
   }
@@ -2064,8 +2073,12 @@ details.data-table[open] summary {
   .level-chip .level-text {
     display: none;
   }
-  .search-trigger kbd {
+  .search-trigger kbd,
+  .top-actions .hide-mobile {
     display: none;
+  }
+  .topbar {
+    gap: 6px;
   }
   .lesson-section {
     grid-template-columns: 1fr;

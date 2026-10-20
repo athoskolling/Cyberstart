@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Download, FileText, FolderGit2, Github, LayoutGrid, LayoutList, Plus, Trash2, X, Lightbulb } from 'lucide-react'
+import { Download, FileText, FolderGit2, GitBranch, LayoutGrid, LayoutList, Plus, Trash2, X, Lightbulb } from 'lucide-react'
 import { CATEGORY_LABEL, NOTE_TEMPLATES, PROJECT_TEMPLATES, README_TEMPLATE } from '../data'
 import { useData, useStore, useToast } from '../store'
 import { uid } from '../lib/id'
@@ -78,7 +78,7 @@ export default function Projects() {
               <Link key={p.id} to={`/projetos/${p.id}`} className="card module-card">
                 <div className="row between">
                   <span className={`badge ${STATUS[p.status].tone}`}>{STATUS[p.status].label}</span>
-                  {p.github && <Github size={16} className="dim" aria-label="Tem link do GitHub" />}
+                  {p.github && <GitBranch size={16} className="dim" aria-label="Tem link do GitHub" />}
                 </div>
                 <h3>{p.name || 'Projeto sem nome'}</h3>
                 <p className="small muted">{p.description || 'Sem descrição.'}</p>

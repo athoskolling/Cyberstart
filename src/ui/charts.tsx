@@ -149,7 +149,7 @@ export function Radar({ data, label }: { data: { label: string; value: number }[
   const poly = (f: (i: number) => number) => data.map((_, i) => pt(i, f(i)).join(',')).join(' ')
   return (
     <div className="chart">
-      <svg viewBox={`0 0 ${S} ${S - 30}`} role="img" aria-label={`${label}. ${data.map((d) => `${d.label}: ${d.value}%`).join('; ')}`} style={{ maxWidth: 360, margin: '0 auto' }}>
+      <svg viewBox={`-50 0 ${S + 100} ${S - 30}`} role="img" aria-label={`${label}. ${data.map((d) => `${d.label}: ${d.value}%`).join('; ')}`} style={{ maxWidth: 420, margin: '0 auto' }}>
         <defs>
           <linearGradient id={`r${id}`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="var(--cyan)" stopOpacity="0.55" />
